@@ -1,0 +1,17 @@
+// MAC은 Helvetical가 기본 폰트
+html {
+    font-size: 62.5%;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.6rem;
+}
+
+button {
+    //change cursor to pointer(손가락모양)
+    cursor: pointer;
+}
+
+button:disable {
+    cursor: default;
+}

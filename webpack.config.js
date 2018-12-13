@@ -22,7 +22,9 @@ module.exports = {
     },
     devtool: 'cheap-module-eval-source-map',
     devServer: {
-        contentBase: path.join(__dirname, 'public')
+        contentBase: path.join(__dirname, 'public'),
+        //404 에러 임의로 무시
+        historyApiFallback: true
     }
 };
 

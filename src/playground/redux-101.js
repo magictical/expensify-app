@@ -1,21 +1,50 @@
 import { createStore } from 'redux';
 
+// Array fuction 연습 파라메터로 array와 object를 같이 사용할 수 있다.
+const add = ({ a, b }, c) => {
+    return a + b + c;
+}
+console.log(add({a:1, b:12}, 20));
+
+
+
+
+// Action generators - functions that return action objects
+
+const incrementCount = ({incrementBy = 1} = {}) => ({
+    type: 'INCREMENT',
+    incrementBy
+})
+
+const decrementCount = ({decrementBy = 1} = {}) => ({
+    type: 'DECREMENT',
+    decrementBy
+})
+
+// chanllenge create RESET, SET action gererators
+
+const resetCount = () => ({
+    type:'RESET'
+})
+
+const setCount = ( {setCountBy }) => ({
+    type: 'SET',
+    setCountBy
+})
+
 const store = createStore((state = {count:0 }, action) => {
     switch(action.type) {
         case 'INCREMENT' :
-            //action.increment가 숫자면 그걸 incrementBy로 쓰고 아닐경우 ':' default로 1을 씀
-            const incrementBy = typeof action.incrementBy === 'number' ? action.incrementBy : 1;
             return {
-                count: state.count + incrementBy
+                count: state.count + action.incrementBy
             };
         case 'DECREMENT' :
-            const decrementBy = typeof action.decrementBy === 'number' ? action.decrementBy: 1;
             return {
-                count: state.count - decrementBy
+                count: state.count - action.decrementBy
             }
         case 'SET' :
             return {
-                count: action.counter
+                count: action.setCountBy
             }
         case 'RESET' :
             return {
@@ -37,35 +66,19 @@ const unsubscribe = store.subscribe(() => {
 });
 
 // action for increment
-store.dispatch({
-    type: 'INCREMENT',
-    incrementBy: 5
+store.dispatch(incrementCount( {incrementBy: 5 }));
 
-});
+store.dispatch(incrementCount());
 
 // // to ubsubscribe use .subscribe() again
 // unsubscribe();
 
-store.dispatch({
-    type: 'INCREMENT'
-});
-
 // action for reset
-store.dispatch({
-    type: 'RESET'
-});
+store.dispatch(resetCount());
 
 // action for decrement
-store.dispatch({
-    type: 'DECREMENT',
-    decrementBy: 10
-});
+store.dispatch(decrementCount());
 
-store.dispatch({
-    type: 'DECREMENT',
-});
+store.dispatch(decrementCount({ decrementBy: 10}));
 
-store.dispatch({
-    type: 'SET',
-    counter: 101
-})
+store.dispatch(setCount({ setCountBy: 101 }));

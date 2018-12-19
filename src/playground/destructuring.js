@@ -1,3 +1,7 @@
+//
+//Object desructuring
+//
+
 // const person = {
 //     name: 'Ian',
 //     age: 33,
@@ -31,15 +35,34 @@
 // console.log(`${surname} lives in ${city} and it's ${temperature} Celsius`)
 
 
-const book = {
-    title: 'Harry Potter',
-    author: 'J.K Rolling',
-    publisher: {
-        name: 'someone'
-    }
-};
+// const book = {
+//     title: 'Harry Potter',
+//     author: 'J.K Rolling',
+//     publisher: {
+//         name: 'someone'
+//     }
+// };
 
-const {author: publisherName = 'Self-published'} = book;
+// const {author: publisherName = 'Self-published'} = book;
 
-// if true for author = J.K , if not Self-Published
-console.log(publisherName)
+// // if true for author = J.K , if not Self-Published
+// console.log(publisherName)
+
+
+//
+// Array desructuring
+//
+
+const address = ['1299 S Juniper Street', , 'Pennsylvania', '19147'];
+
+// [, , state] 사용시 3번째만 사용하고 나머지 생략가능
+// object와 달리 rename 불가 - [street: 'newSteet']] => x
+// default 값은 할당가능 street = 'default street'
+const [ , city ='my city'] = address;
+console.log(`You are in ${city}.`);
+
+const item = ['Coffee(hot)', '$2.00', '$2.50', '$3.00'];
+
+const [orderName, small, medium, large] = item;
+
+ console.log(`A medium ${orderName} costs ${medium}`)

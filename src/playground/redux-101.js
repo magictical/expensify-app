@@ -32,7 +32,17 @@ const setCount = ( {setCountBy }) => ({
     setCountBy
 })
 
-const store = createStore((state = {count:0 }, action) => {
+// Reducers
+// 1. Reducers are pure functions - 외부에서 관여하지 않는다. 내부의 변수(state, action)만 사용한다
+    //pure function이 아닌 예(외부변수 a가 add function에 영향을 준다.)
+    // const a =1 
+    // const add = (b) => {
+    //     return a + b;
+    // }
+
+// 2. never change the state or action
+
+const countReducer = (state = {count:0 }, action) => {
     switch(action.type) {
         case 'INCREMENT' :
             return {
@@ -54,7 +64,9 @@ const store = createStore((state = {count:0 }, action) => {
         default : 
             return state;
     }
-});
+};
+
+const store = createStore(countReducer);
 
 
 

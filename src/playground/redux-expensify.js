@@ -107,3 +107,22 @@ const demoState = {
         endDate: undefined
     }
 }
+
+
+const user = {
+    name: 'Jen',
+    age: 24
+};
+
+const updateUser = {...user,
+    name: 'Ian',
+    city: 'Busan',
+    hoby: 'climbing'
+}
+
+//...object 문법을 사용하려면 object spread operator사용설정을
+//.babelrc에서 해줘야한다. yarn에 설치하고 .babelrc의 plugin에도 추가해야함
+console.log({
+    updateUser,
+    user
+})

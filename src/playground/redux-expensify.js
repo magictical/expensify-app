@@ -24,9 +24,23 @@ const addExpense = (
     },
 });
 
+// REMOVE_EXPENSE
 const removeExpense = ({ id } = {}) => ({
     type: 'REMOVE_EXPENSE',
     id
+});
+
+// EDIT_EXPENSE
+const editExpense = (id, updates) => ({
+    type: 'EDIT_EXPENSE',
+    id,
+    updates
+});
+
+// ADD_TEXT
+const setTextFilter = (text ='')  => ({
+    type: 'SET_TEXT_FILTER',
+    text
 });
 
 
@@ -48,7 +62,19 @@ const expensesReducer = (state = expenseReducerDefaultState, action) => {
         //새로운 array에서 제외된다.
         case 'REMOVE_EXPENSE':
             return state.filter(({ id }) => id !== action.id )
-
+        case 'EDIT_EXPENSE' :
+            return state.map((expense) => {
+                if(expense.id === action.id) {
+                    return {
+                        //read all the expense data from state
+                        ...state,
+                        //override updates data in expense
+                        ...action.updates
+                    };
+                } else {
+                    return expense;
+                }
+            });
         default:
             return state;
     }
@@ -63,8 +89,15 @@ const filterReducerDefaultState = {
     endDate: undefined
 }
 
+
+
 const filterReducers = (state = filterReducerDefaultState, action) => {
     switch (action.type) {
+        case 'SET_TEXT_FILTER' :
+            return {
+                ...state,
+                text:action.text
+            }
         default :
             return state;
     }
@@ -87,8 +120,14 @@ store.subscribe(() => {
 const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100 }));
 const expenseTwo = store.dispatch(addExpense({ description: 'coffee', amount: 3 }));
 
-//remove coffee expense!
+// remove coffee expense!
 store.dispatch(removeExpense({ id: expenseOne.expense.id}));
+
+// edit expense
+store.dispatch(editExpense(expenseTwo.expense.id, {amount: 500}));
+
+// text filter
+store.dispatch(setTextFilter('rent'));
 
 
 

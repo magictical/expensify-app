@@ -43,6 +43,16 @@ const setTextFilter = (text ='')  => ({
     text
 });
 
+// gernerator for sortByAmount
+const sortByAmount = () => ({
+    type: 'SORT_BY_AMOUNT'
+})
+
+// generator for sortByDate 
+const sortByDate = () => ({
+    type: 'SORT_BY_DATE'
+})
+
 
 // Expenses Reducer
 const expenseReducerDefaultState = [];
@@ -95,9 +105,24 @@ const filterReducers = (state = filterReducerDefaultState, action) => {
     switch (action.type) {
         case 'SET_TEXT_FILTER' :
             return {
+                //state 값을 가져옴
                 ...state,
+                //text 오브젝트의 값을 변경하고 return!
                 text:action.text
             }
+        // filter sortByAmount
+        case 'SORT_BY_AMOUNT' :
+        return {
+            ...state,
+            sortBy: 'amount'
+        }
+
+        case 'SORT_BY_DATE' : 
+        return {
+            ...state,
+            sortBy: 'date'
+        }
+        
         default :
             return state;
     }
@@ -128,6 +153,10 @@ store.dispatch(editExpense(expenseTwo.expense.id, {amount: 500}));
 
 // text filter
 store.dispatch(setTextFilter('rent'));
+
+store.dispatch(sortByAmount());
+
+store.dispatch(sortByDate());
 
 
 

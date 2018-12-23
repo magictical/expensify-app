@@ -53,6 +53,18 @@ const sortByDate = () => ({
     type: 'SORT_BY_DATE'
 })
 
+// generator for startDaate
+const setStartDate = (startDate) => ({
+    type: 'START_DATE',
+    startDate
+})
+
+// generator for EndDate
+const setEndDate = (endDate) => ({
+    type: 'END_DATE',
+    endDate
+})
+
 
 // Expenses Reducer
 const expenseReducerDefaultState = [];
@@ -113,20 +125,32 @@ const filterReducers = (state = filterReducerDefaultState, action) => {
         // filter sortByAmount
         case 'SORT_BY_AMOUNT' :
         return {
-            ...state,
-            sortBy: 'amount'
-        }
+                ...state,
+                sortBy: 'amount'
+        };
 
         case 'SORT_BY_DATE' : 
         return {
+                ...state,
+                sortBy: 'date'
+        };
+
+        case 'START_DATE' :
+        return {
+                ...state,
+                startDate: action.startDate 
+        };
+
+        case 'END_DATE' :
+        return {
             ...state,
-            sortBy: 'date'
-        }
+            endDate: action.endDate
+        };
         
         default :
             return state;
     }
-}
+};
 
 // Store creattion
 const store = createStore(
@@ -142,22 +166,25 @@ store.subscribe(() => {
     console.log(store.getState())
 });
 
-const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100 }));
-const expenseTwo = store.dispatch(addExpense({ description: 'coffee', amount: 3 }));
+// const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100 }));
+// const expenseTwo = store.dispatch(addExpense({ description: 'coffee', amount: 3 }));
 
-// remove coffee expense!
-store.dispatch(removeExpense({ id: expenseOne.expense.id}));
+// // remove coffee expense!
+// store.dispatch(removeExpense({ id: expenseOne.expense.id}));
 
-// edit expense
-store.dispatch(editExpense(expenseTwo.expense.id, {amount: 500}));
+// // edit expense
+// store.dispatch(editExpense(expenseTwo.expense.id, {amount: 500}));
 
-// text filter
-store.dispatch(setTextFilter('rent'));
+// // text filter
+// store.dispatch(setTextFilter('rent'));
 
-store.dispatch(sortByAmount());
+// store.dispatch(sortByAmount());
 
-store.dispatch(sortByDate());
+// store.dispatch(sortByDate());
 
+store.dispatch(setStartDate(125));
+store.dispatch(setStartDate());
+store.dispatch(setEndDate(1250));
 
 
 const demoState = {

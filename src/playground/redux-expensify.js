@@ -53,7 +53,7 @@ const sortByDate = () => ({
     type: 'SORT_BY_DATE'
 })
 
-// generator for startDaate
+// generator for startDate
 const setStartDate = (startDate) => ({
     type: 'START_DATE',
     startDate
@@ -152,6 +152,17 @@ const filterReducers = (state = filterReducerDefaultState, action) => {
     }
 };
 
+
+// See what does happen in expenses
+const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
+    return expenses.filter((expense) => {
+        const startDateMatch = typeof startDate !== 'number' || expense.createdAt >= startDate;
+        const endDateMatch = typeof endDate !== 'number' || expense.createdAt <= endDate;
+        const textMatch = true;
+        return startDateMatch && endDateMatch && textMatch;
+    });
+}
+
 // Store creattion
 const store = createStore(
     combineReducers({
@@ -163,11 +174,13 @@ const store = createStore(
 
 // ADD subcribe
 store.subscribe(() => {
-    console.log(store.getState())
+    const state = store.getState();
+    const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
+    console.log(visibleExpenses);
 });
 
-// const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100 }));
-// const expenseTwo = store.dispatch(addExpense({ description: 'coffee', amount: 3 }));
+const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100, createdAt: 1000}));
+const expenseTwo = store.dispatch(addExpense({ description: 'coffee', amount: 3, createdAt: -1000 }));
 
 // // remove coffee expense!
 // store.dispatch(removeExpense({ id: expenseOne.expense.id}));
@@ -182,9 +195,9 @@ store.subscribe(() => {
 
 // store.dispatch(sortByDate());
 
-store.dispatch(setStartDate(125));
-store.dispatch(setStartDate());
-store.dispatch(setEndDate(1250));
+store.dispatch(setStartDate(0));
+// store.dispatch(setStartDate());
+store.dispatch(setEndDate(999));
 
 
 const demoState = {
@@ -217,7 +230,7 @@ const updateUser = {...user,
 
 //...object 문법을 사용하려면 object spread operator사용설정을
 //.babelrc에서 해줘야한다. yarn에 설치하고 .babelrc의 plugin에도 추가해야함
-console.log({
-    updateUser,
-    user
-})
+// console.log({
+//     updateUser,
+//     user
+// })

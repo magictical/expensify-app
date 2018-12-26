@@ -7,8 +7,25 @@ import configureStore from './store/configureStore';
 //webpack에서 scss 설정을 css에서 적용되도록 중간에 '?' 추가 해줘야 함
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
+import { addExpense } from './actions/expenses';
+import { setTextFilter } from './actions/filters';
+import getVisibleExpenses from './selectors/expenses';
+
 
 const store = configureStore();
-console.log(store.getState());
+
+const expenseOne = store.dispatch(addExpense({ description: 'water bill', amount: 100, createdAt: 100}));
+const expenseTwo = store.dispatch(addExpense({ description: 'gas bill', amount: 200, createdAt: 1000}));
+store.dispatch(setTextFilter('water'));
+
+
+const state = store.getState();
+const showCurrentState = getVisibleExpenses(state.expenses, state.filters);
+console.log(showCurrentState);
+
+
+
+
+
 
 ReactDOM.render(<AppRouter />, document.getElementById('app'));

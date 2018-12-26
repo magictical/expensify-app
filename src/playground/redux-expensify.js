@@ -162,6 +162,18 @@ const getVisibleExpenses = (expenses, { text, sortBy, startDate, endDate }) => {
         
         const textMatch =  expense.description.toLowerCase().includes(text.toLowerCase());
         return startDateMatch && endDateMatch && textMatch;
+
+    //check sort function in MDN https://developer.mozilla.org/ko/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+    }).sort((a, b) => {
+        // 비교후 -1이면 a의 인덱스를 작은값으로 즉 a가 앞으로정렬 1이면 a인덱스를 큰값으로
+        if(sortBy === 'date') {
+            //최신 순으로 정렬
+            return a.createdAt < b.createdAt ? 1 : -1
+        }
+        if(sortBy === 'amount') {
+            // amount가 높은 순으로 정렬
+            return a.amount > b.amount ? -1: 1
+        }
     });
 }
 
@@ -181,7 +193,7 @@ store.subscribe(() => {
     console.log(visibleExpenses);
 });
 
-const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100, createdAt: 1000}));
+const expenseOne = store.dispatch(addExpense({ description: 'Rent', amount: 100, createdAt: -21000}));
 const expenseTwo = store.dispatch(addExpense({ description: 'coffee', amount: 3, createdAt: -1000 }));
 
 // // remove coffee expense!
@@ -193,13 +205,13 @@ const expenseTwo = store.dispatch(addExpense({ description: 'coffee', amount: 3,
 // // text filter
 // store.dispatch(setTextFilter('rent'));
 
-// store.dispatch(sortByAmount());
+store.dispatch(sortByAmount());
 
 // store.dispatch(sortByDate());
 
-store.dispatch(setStartDate(0));
-store.dispatch(setStartDate());
-store.dispatch(setEndDate(0));
+// store.dispatch(setStartDate(0));
+// store.dispatch(setStartDate());
+// store.dispatch(setEndDate(0));
 
 
 const demoState = {

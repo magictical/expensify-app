@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom';
+//import react-redux provider
+import { Provider } from 'react-redux';
 import AppRouter from './routers/AppRouter';
 
 import configureStore from './store/configureStore';
@@ -27,5 +29,10 @@ console.log(showCurrentState);
 
 
 
+const jsx = (
+    <Provider store={store}>
+        <AppRouter />
+    </Provider>
+);
 
-ReactDOM.render(<AppRouter />, document.getElementById('app'));
+ReactDOM.render(jsx, document.getElementById('app'));

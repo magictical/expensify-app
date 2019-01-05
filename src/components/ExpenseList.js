@@ -1,12 +1,21 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ExpenseListItem from './ExpenseListItem';
+import selectExpenses from '../selectors/expenses';
 
 
 const ExpenseList = (props) => (
     <div>
         <h1>Expense List</h1>
-        {props.filters.text}
-        {props.expenses.length}
+
+        {
+            //...expense로 현재 모든 값의 상태를 넘김 ExpenseListItem에서는 
+            //destructuring 으로 expense의 특정 값을 받아서 처리!
+            props.expenses.map((expense) => {
+                return <ExpenseListItem key={expense.id} {...expense}/>
+            })
+        }
+        
     </div>
 );
 
@@ -32,8 +41,7 @@ const ExpenseList = (props) => (
 
 const mapStateToProps = (state) => {
     return {
-        expenses: state.expenses,
-        filters: state.filters
+        expenses: selectExpenses(state.expenses, state.filters)
     };
 };
 

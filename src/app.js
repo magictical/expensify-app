@@ -18,7 +18,7 @@ const store = configureStore();
 
 const expenseOne = store.dispatch(addExpense({ description: 'water bill', amount: 100, createdAt: 100}));
 const expenseTwo = store.dispatch(addExpense({ description: 'gas bill', amount: 200, createdAt: 1000}));
-store.dispatch(setTextFilter('water'));
+store.dispatch(setTextFilter('bill'));
 
 
 const state = store.getState();

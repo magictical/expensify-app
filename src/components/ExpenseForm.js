@@ -14,7 +14,8 @@ export default class ExpenseForm extends React.Component {
     note: '',
     amount: '',
     createdAt: moment(),
-    calendarFocused: false
+    calendarFocused: false,
+    error: ''
   }
   // tracking the input data from user in description <input>
   onDescriptionChange = (e) => {
@@ -28,22 +29,36 @@ export default class ExpenseForm extends React.Component {
   onAmountChange = (e) => {
     const amount = e.target.value;
     //regex for number and decimal two point
-    if(amount.match(/^\d*(\.\d{0,2})?$/)) {
+    //!amount 는 input값을 지웠을경우(false) input이 placeholder로 초기화되도록 함
+    if(!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
       this.setState(() => ({ amount }))
     }
   }
   onDateChange = (createdAt) => {
-    this.setState(() => ({ createdAt }));
+    //prevent delete the date(colored UI) from user
+    if(createdAt) {
+      this.setState(() => ({ createdAt }));
+    }    
   }
   onFocusChange = ({ focused }) => {
     this.setState(() => ({ calendarFocused: focused }));
+  }
+  onSubmit = (e) => {
+    e.preventDefault();
+    if(!this.state.description || !this.state.amount) {
+      this.setState(() => ({ error: 'Please provide description and amount' }));
+    } else {
+      this.setState(() => ({ error: ''}));
+      console.log('submmited!');
+    }
   }
 
 
     render() {
         return (
             <div>
-                <form>
+            {this.state.error && <p>{this.state.error}</p>  }
+                <form onSubmit={this.onSubmit}>
                   <input 
                     type="text"
                     placeholder="Description"

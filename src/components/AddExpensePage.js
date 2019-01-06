@@ -3,7 +3,12 @@ import ExpenseForm from './ExpenseForm';
 const AddExpensePage = () => (
     <div>
         <h1>Add Expense</h1>
-        <ExpenseForm />
+        <ExpenseForm 
+          onSubmit={(ace) => {
+						console.log(ace);
+						console.log("this is return value")
+					}}
+        />
     </div>
 );
 

@@ -28,7 +28,7 @@ const expenseThree = store.dispatch(addExpense({ description: 'Rent', amount: 10
 
 const state = store.getState();
 const showCurrentState = getVisibleExpenses(state.expenses, state.filters);
-console.log(showCurrentState);
+console.log('from app.js', showCurrentState);
 
 
 

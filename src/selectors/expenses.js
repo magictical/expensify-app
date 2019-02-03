@@ -1,10 +1,11 @@
+import moment from 'moment';
 // filter for expense
 export default (expenses, { text, sortBy, startDate, endDate }) => {
     return expenses.filter((expense) => {
         //리턴값에 항상 true를 전달하기 위해 어떤값을 입력받든 true가되는 식을만듬
-        const startDateMatch = typeof startDate !== 'number' || expense.createdAt >= startDate;
-        const endDateMatch = typeof endDate !== 'number' || expense.createdAt <= endDate;
-        
+        const createdAtMoment = moment(expense.createdAt);
+        const startDateMatch = startDate ? startDate.isSameOrBefore(createdAtMoment, 'day'): true;
+        const endDateMatch = endDate ? endDate.isSameOrAfter(createdAtMoment, 'day') : true;
         const textMatch =  expense.description.toLowerCase().includes(text.toLowerCase());
         return startDateMatch && endDateMatch && textMatch;
 

@@ -1,5 +1,5 @@
 import selectExpenses from '../../selectors/expenses';
-import momonet from 'moment';
+import moment from 'moment';
 const expenses = [{
   id:1,
   description: 'Gum',
@@ -11,13 +11,14 @@ const expenses = [{
   description: 'Rent',
   note:'',
   amount: 109500,
-  createdAt: -1000
+  // moment(0) 0일날 부터 1일후
+  createdAt: moment(0).subtract(4, 'days').valueOf()
 }, {
   id:3,
   description: 'Creadit Card',
   note:'',
   amount: 4500,
-  createdAt: 1000
+  createdAt: moment(0).add(4, 'days').valueOf()
 }];
 
 test('should filter by text value', () => {
@@ -33,11 +34,48 @@ test('should filter by text value', () => {
 
 test('should filter by startDate', () =>{
   const filters = {
-    text: 'e',
+    text: '',
     sortBy: 'date',
-    startDate: 0,
+    startDate: moment(0),
     endDate: undefined
   }
   const result = selectExpenses(expenses, filters);
-  expect(result).toEqual(expenses[2]);
+  expect(result).toEqual([expenses[2],expenses[0]]);
+});
+
+// should filter by endDate
+test('should filter by endDate', () => {
+  const filters = {
+    text: '',
+    sortBy: 'date',
+    startDate: undefined,
+    endDate: moment(0)
+  }
+  const result = selectExpenses(expenses, filters);
+  expect(result).toEqual([expenses[0], expenses[1]]);
+})
+
+// should sort by date
+test('should sort by date', () => {
+  const filters = ({
+    text: '',
+    sortBy: 'date',
+    startDate: undefined,
+    endDate: undefined
+  });
+  const result = selectExpenses(expenses, filters);
+  expect(result).toEqual([expenses[2], expenses[0], expenses[1]]);
+})
+
+// should sort by amount
+
+test('should sort by amount', () => {
+  const filters = ({
+    text: '',
+    sortBy: 'amount',
+    startDate: undefined,
+    endDate: undefined
+  });
+  const result = selectExpenses(expenses, filters);
+  expect(result).toEqual([expenses[1], expenses[2], expenses[0]]);
 })

@@ -2,7 +2,7 @@ import filtersReducer from '../../reducers/filters';
 import moment from 'moment';
 
 test('should setup default values', () => {
-  const state = filtersReducer(undefined, { type: '@@' });
+  const state = filtersReducer(undefined, { type: '@@INIT' });
   expect(state).toEqual({
     text: '',
     sortBy: 'date',

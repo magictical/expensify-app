@@ -3,15 +3,19 @@ import { connect } from 'react-redux';
 import ExpenseListItem from './ExpenseListItem';
 import selectExpenses from '../selectors/expenses';
 
-const ExpenseList = props => (
+export const ExpenseList = props => (
   <div>
     <h1>Expense List</h1>
 
     {//...expense로 현재 모든 값의 상태를 넘김 ExpenseListItem에서는
     //destructuring 으로 expense의 특정 값을 받아서 처리!
-    props.expenses.map(expense => {
-      return <ExpenseListItem key={expense.id} {...expense} />;
-    })}
+    props.expenses.length === 0 ? (
+      <p>No Expenses</p>
+    ) : (
+      props.expenses.map(expense => {
+        return <ExpenseListItem key={expense.id} {...expense} />;
+      })
+    )}
   </div>
 );
 

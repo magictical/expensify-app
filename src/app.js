@@ -16,15 +16,15 @@ import getVisibleExpenses from './selectors/expenses';
 
 const store = configureStore();
 
-const expenseOne = store.dispatch(
-  addExpense({ description: 'Water bill', amount: 4500 })
-);
-const expenseTwo = store.dispatch(
-  addExpense({ description: 'Gas bill', createdAt: 1000 })
-);
-const expenseThree = store.dispatch(
-  addExpense({ description: 'Rent', amount: 109500 })
-);
+// const expenseOne = store.dispatch(
+//   addExpense({ description: 'Water bill', amount: 4500 })
+// );
+// const expenseTwo = store.dispatch(
+//   addExpense({ description: 'Gas bill', createdAt: 1000 })
+// );
+// const expenseThree = store.dispatch(
+//   addExpense({ description: 'Rent', amount: 109500 })
+// );
 
 // setTimeout(() => {
 //     store.dispatch(setTextFilter('bill'));

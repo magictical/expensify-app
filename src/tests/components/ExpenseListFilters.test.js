@@ -22,3 +22,14 @@ beforeEach(() => {
     />
   );
 });
+
+test('should render ExpenseListFilters correctly', () => {
+  expect(wrapper).toMatchSnapshot();
+});
+
+test('should render ExpenseListFilters correctly with altFilters', () => {
+  wrapper.setProps({
+    filters: altFilters
+  });
+  expect(wrapper).toMatchSnapshot();
+});

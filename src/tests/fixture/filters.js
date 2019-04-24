@@ -9,7 +9,7 @@ const filters = {
 
 const altFilters = {
   text: 'bills',
-  sortBy: 'amount',
+  sortBy: 'date',
   startDate: moment(0),
   endDate: moment(0).add(3, 'days')
 };

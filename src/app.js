@@ -14,8 +14,6 @@ import { addExpense } from './actions/expenses';
 import { setTextFilter } from './actions/filters';
 import getVisibleExpenses from './selectors/expenses';
 
-const store = configureStore();
-
 // const expenseOne = store.dispatch(
 //   addExpense({ description: 'Water bill', amount: 4500 })
 // );
@@ -29,11 +27,7 @@ const store = configureStore();
 // setTimeout(() => {
 //     store.dispatch(setTextFilter('bill'));
 // }, 3000)
-
-const state = store.getState();
-const showCurrentState = getVisibleExpenses(state.expenses, state.filters);
-console.log('from app.js', showCurrentState);
-
+const store = configureStore();
 const jsx = (
   <Provider store={store}>
     <AppRouter />

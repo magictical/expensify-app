@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
+import numeral from 'numeral';
 
 // Export a stateless fuctional component
 // destructuring으로 props을 - Descruption, amount, createdAt 으로
@@ -12,7 +13,8 @@ const ExpenseListItem = ({ id, description, amount, createdAt }) => (
       <h3>{description}</h3>
     </Link>
     <p>
-      {amount} - {moment(createdAt).format('MMMM Do, YYYY')}
+      {numeral(amount / 100).format('$0,0.00')} -{' '}
+      {moment(createdAt).format('MMMM Do, YYYY')}
     </p>
   </div>
 );
